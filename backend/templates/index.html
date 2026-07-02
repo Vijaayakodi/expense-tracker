@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header>
+
+        <h1>💰 Expense Tracker</h1>
+
+        <p>Track your income and expenses easily</p>
+
+    </header>
+
+    <!-- ================= SUMMARY ================= -->
+
+    <section class="summary">
+
+        <div class="card balance">
+            <h3>Balance</h3>
+            <h2 id="balance">₹0</h2>
+        </div>
+
+        <div class="card income">
+            <h3>Income</h3>
+            <h2 id="income">₹0</h2>
+        </div>
+
+        <div class="card expense">
+            <h3>Expense</h3>
+            <h2 id="expense">₹0</h2>
+        </div>
+
+    </section>
+
+    <!-- ================= FORM ================= -->
+
+    <section class="form-section">
+
+        <h2>Add New Transaction</h2>
+
+        <form id="transactionForm">
+
+            <div class="form-group">
+
+                <label>Title</label>
+
+                <input
+                    type="text"
+                    id="title"
+                    placeholder="Enter title"
+                    required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Amount</label>
+
+                <input
+                    type="number"
+                    id="amount"
+                    placeholder="Enter amount"
+                    required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Category</label>
+
+                <input
+                    type="text"
+                    id="category"
+                    placeholder="Food, Salary, Travel..."
+                    required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Type</label>
+
+                <select id="type">
+
+                    <option value="Income">Income</option>
+
+                    <option value="Expense">Expense</option>
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Date</label>
+
+                <input
+                    type="date"
+                    id="transaction_date"
+                    required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Notes</label>
+
+                <textarea
+                    id="notes"
+                    rows="3"
+                    placeholder="Optional"></textarea>
+
+            </div>
+
+            <button type="submit">
+
+                Add Transaction
+
+            </button>
+
+        </form>
+
+    </section>
+
+    <!-- ================= TABLE ================= -->
+
+    <section class="table-section">
+
+        <h2>Recent Transactions</h2>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Title</th>
+
+                    <th>Amount</th>
+
+                    <th>Category</th>
+
+                    <th>Type</th>
+
+                    <th>Date</th>
+
+                    <th>Actions</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="transactionTable">
+
+                <!-- JavaScript will insert rows here -->
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        Expense Tracker © 2026
+
+    </footer>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
