@@ -139,11 +139,10 @@ def get_summary():
             "data": summary
         }), 200
 
-    except Exception as e:import traceback
+    except Exception as e:
+        print("SUMMARY ERROR:", e)
 
-    traceback.print_exc()
-
-    return jsonify({
-        "success": False,
-        "message": str(e)
-    }), 500
+        return jsonify({
+            "success": False,
+            "message": str(e)
+        }), 500
