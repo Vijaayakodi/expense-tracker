@@ -6,13 +6,11 @@ load_dotenv()
 
 def get_db_connection():
     try:
-        print("========== ENV ==========")
         print("HOST:", os.getenv("DB_HOST"))
         print("PORT:", os.getenv("DB_PORT"))
         print("USER:", os.getenv("DB_USER"))
         print("DATABASE:", os.getenv("DB_NAME"))
-        print("=========================")
-
+        print("✅ Connected to Railway MySQL")
         connection = mysql.connector.connect(
             host=os.getenv("DB_HOST"),
             port=int(os.getenv("DB_PORT")),
