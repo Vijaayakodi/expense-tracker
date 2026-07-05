@@ -50,32 +50,39 @@ def get_transaction(transaction_id):
 # ==========================
 @transaction_bp.route("/transactions", methods=["POST"])
 def create_transaction():
+    try:
+        data = request.get_json()
 
-    data = request.get_json()
+        required_fields = [
+            "title",
+            "amount",
+            "type",
+            "category",
+            "transaction_date"
+        ]
 
-    required_fields = [
-        "title",
-        "amount",
-        "type",
-        "category",
-        "transaction_date"
-    ]
+        for field in required_fields:
+            if field not in data:
+                return jsonify({
+                    "success": False,
+                    "message": f"{field} is required"
+                }), 400
 
-    for field in required_fields:
-        if field not in data:
-            return jsonify({
-                "success": False,
-                "message": f"{field} is required"
-            }), 400
+        transaction_id = TransactionModel.create_transaction(data)
 
-    transaction_id = TransactionModel.create_transaction(data)
+        return jsonify({
+            "success": True,
+            "message": "Transaction created successfully",
+            "transaction_id": transaction_id
+        }), 201
 
-    return jsonify({
-        "success": True,
-        "message": "Transaction created successfully",
-        "transaction_id": transaction_id
-    }), 201
+    except Exception as e:
+        print("CREATE ERROR:", e)
 
+        return jsonify({
+            "success": False,
+            "message": str(e)
+        }), 500
 
 # ==========================
 # UPDATE TRANSACTION
@@ -124,10 +131,19 @@ def delete_transaction(transaction_id):
 # ==========================
 @transaction_bp.route("/summary", methods=["GET"])
 def get_summary():
+    try:
+        summary = TransactionModel.get_summary()
 
-    summary = TransactionModel.get_summary()
+        return jsonify({
+            "success": True,
+            "data": summary
+        }), 200
+
+    except Exception as e:import traceback
+
+    traceback.print_exc()
 
     return jsonify({
-        "success": True,
-        "data": summary
-    }), 200
+        "success": False,
+        "message": str(e)
+    }), 500

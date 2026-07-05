@@ -1,25 +1,29 @@
+import os
+from dotenv import load_dotenv
 import mysql.connector
 from mysql.connector import Error
 
+load_dotenv()
 
 def get_db_connection():
-    """
-    Creates and returns a MySQL database connection.
-    """
-
     try:
         connection = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="vijay232349k",
-            database="expense_tracker"
+            host=os.getenv("DB_HOST"),
+            user=os.getenv("DB_USER"),
+            password=os.getenv("DB_PASSWORD"),
+            database=os.getenv("DB_NAME"),
+            port=int(os.getenv("DB_PORT"))
         )
 
-        if connection.is_connected():
-            print("✅ Connected to MySQL")
-
+        print("✅ Connected to Railway MySQL")
         return connection
 
-    except Error as e:
-        print(f"❌ Database Error: {e}")
+    except Exception as e:
+        print("========== DATABASE ERROR ==========")
+        print("HOST =", os.getenv("DB_HOST"))
+        print("USER =", os.getenv("DB_USER"))
+        print("DATABASE =", os.getenv("DB_NAME"))
+        print("PORT =", os.getenv("DB_PORT"))
+        print("ERROR =", repr(e))
+        print("===================================")
         return None
