@@ -19,7 +19,6 @@ class TransactionModel:
         """
 
         cursor.execute(query)
-
         transactions = cursor.fetchall()
 
         cursor.close()
@@ -31,11 +30,15 @@ class TransactionModel:
     def get_transaction_by_id(transaction_id):
         connection = get_db_connection()
 
+        if connection is None:
+            raise Exception("Database connection failed")
+
         cursor = connection.cursor(dictionary=True)
 
-        query = "SELECT * FROM transactions WHERE id = %s"
-
-        cursor.execute(query, (transaction_id,))
+        cursor.execute(
+            "SELECT * FROM transactions WHERE id=%s",
+            (transaction_id,)
+        )
 
         transaction = cursor.fetchone()
 
@@ -47,6 +50,9 @@ class TransactionModel:
     @staticmethod
     def create_transaction(data):
         connection = get_db_connection()
+
+        if connection is None:
+            raise Exception("Database connection failed")
 
         cursor = connection.cursor()
 
@@ -79,6 +85,9 @@ class TransactionModel:
     @staticmethod
     def update_transaction(transaction_id, data):
         connection = get_db_connection()
+
+        if connection is None:
+            raise Exception("Database connection failed")
 
         cursor = connection.cursor()
 
@@ -119,6 +128,9 @@ class TransactionModel:
     def delete_transaction(transaction_id):
         connection = get_db_connection()
 
+        if connection is None:
+            raise Exception("Database connection failed")
+
         cursor = connection.cursor()
 
         cursor.execute(
@@ -138,6 +150,9 @@ class TransactionModel:
     @staticmethod
     def get_summary():
         connection = get_db_connection()
+
+        if connection is None:
+            raise Exception("Database connection failed")
 
         cursor = connection.cursor(dictionary=True)
 
